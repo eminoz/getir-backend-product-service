@@ -7,5 +7,5 @@ const { products } = require("../api");
 router.post("/api/product/create", products.createNewProduct)
 
 //user router
-router.get( "/api/product/getallprouct")
+router.get( "/api/product/getallprouct",products.getAllProducts)
 module.exports = router

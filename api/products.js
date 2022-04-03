@@ -15,3 +15,9 @@ module.exports.createNewProduct = async (req, res, next) => {
     throw error;
   }
 }
+module.exports.getAllProducts = async (req, res, next) => {
+  const productResult = await service.GelAllProduct()
+  const result = new SuccessResponse(200, productResult)
+  return res.json(result.dataResult())
+
+}
