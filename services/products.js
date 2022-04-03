@@ -1,9 +1,11 @@
 const { ProductRepository } = require("../repository")
 
 const { ProductModel } = require("../model")
+const RedisCustomer = require("../redis/redisCustomer")
 class ProductService {
     constructor() {
         this.repository = new ProductRepository()
+        this.redis = new RedisCustomer()
     }
 
     async CreateProduct({ req }) {
@@ -13,6 +15,7 @@ class ProductService {
                 name, description, type, unit, price, available, supplier
             })
             const productResult = await this.repository.CreateProduct(product)
+            this.redis.CreateProduct({ productResult, product })
             return productResult
         } catch (error) {
             throw error
@@ -20,8 +23,16 @@ class ProductService {
     }
     async GelAllProduct() {
         try {
-            const products = await this.repository.GelAllProduct()
-            return products
+            const allProduct = await this.redis.GetAllProduct()
+
+            if (allProduct.length == 0) {
+                console.log("returned mongo")
+                const products = await this.repository.GelAllProduct()
+                return products
+            }
+            console.log("returned redis")
+            return allProduct
+
         } catch (error) {
             throw error
         }
