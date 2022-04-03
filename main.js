@@ -6,9 +6,11 @@ const expressApp = require("./express-app")
 const StartApp = async () => {
     const app = express()
     await databaseConnection()
+  
     await expressApp(app)
-    app.listen(PORT, () => { `product app started at ${PORT}` }).on("error", (err) => {
-        console.log(err); process.exit();
-    })
+    app.listen(PORT, () => { console.log(`lintening to port ${PORT}`) })
+        .on("error", (err) => {
+            console.log(err); process.exit();
+        })
 }
 StartApp()

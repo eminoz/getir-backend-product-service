@@ -5,11 +5,12 @@ class ProductService {
     constructor() {
         this.repository = new ProductRepository()
     }
+ 
     async CreateProduct({ req }) {
-        const { name, desc, type, unit, price, available, suplier, banner } = req.body;
+        const { name, description, type, unit, price, available, supplier } = req.body;
         try {
             const product = await ProductModel({
-                name, desc, type, unit, price, available, suplier, banner
+                name, description, type, unit, price, available, supplier
             })
             const productResult = await this.repository.CreateProduct(product)
             return productResult

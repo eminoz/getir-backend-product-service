@@ -4,13 +4,14 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
     name: String,
-    desc: String,
+    description: String,
     banner: String,
     type: String,
     unit: Number,
     price: Number,
     available: Boolean,
-    suplier: String
+    supplier: String
+   
 });
 
 module.exports =  mongoose.model('product', ProductSchema);
